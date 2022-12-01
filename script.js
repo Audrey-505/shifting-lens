@@ -9,16 +9,31 @@ fetch(genreURL)
     return response.json()
 })
 .then(function (data){
-    console.log(data)
-    genreMovies(data.genres)
+    //console.log(data)
+    var genreList = data.genres
+    console.log(genreList)
+    // let array = [
+    //     {foo: 1, bar: 2},
+    //     {foo: 3, bar: 4}
+    // ]
+    //   console.log(array.map( e => e.foo ))
+    console.log((genreList.map(e => e.name)))
+    var names = genreList.map(e => e.name)
+    genreMovies(names)
 })
 
 function genreMovies(a){
 $(genreSelect).append(`
     <label for="genreSelec">Pick A Genre</label>
-    <select class="form-control" id="genreSelec">
-    ${Object.keys(a).map(function (b){
-        return `<option>${b}</option>`
+    <select class="form-control" onchange=" " id="genreSelec">
+    <option>Select A Genre</option>
+    ${a.forEach(e => {
+        console.log(e)
+    return `<option>${e}</option>`
     })}
-`)
+ `)
 }
+
+// you would need to loop through this genre array
+// and grab the name value for each item in the array
+// you could then push these items into a new array
