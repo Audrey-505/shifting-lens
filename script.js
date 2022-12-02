@@ -1,4 +1,5 @@
 var genreSelect = document.getElementById('genreSelect')
+var movieInfo = document.getElementById('movieInfo')
 
 var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
 
@@ -11,15 +12,15 @@ fetch(genreURL)
 .then(function (data){
     //console.log(data)
     var genreList = data.genres
-    console.log(genreList)
+    //console.log(genreList)
     // let array = [
     //     {foo: 1, bar: 2},
     //     {foo: 3, bar: 4}
     // ]
     //   console.log(array.map( e => e.foo ))
-    console.log((genreList.map(e => e.name)))
+    //console.log((genreList.map(e => e.name)))
     var names = genreList.map(e => e.name)
-    console.log(names)
+    //console.log(names)
     genreMovies(names)
 })
 
@@ -29,13 +30,110 @@ $(genreSelect).append(`
     <select class="form-control" onchange="" id="genreSelec">
     <option>Select A Genre</option>
     ${a.map(e => {
-        console.log(e)
+        //console.log(e)
     return `<option>${e}</option>`
     })}
  `)
 }
 
+discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US`
 
-// you would need to loop through this genre array
-// and grab the name value for each item in the array
-// you could then push these items into a new array
+fetch(discoverURL)
+.then(function (response){
+    return response.json()
+})
+.then(function (data){
+    console.log(data)
+    var dataArray = data.results
+    var titles = dataArray.map(e => e.title)
+    var overview = dataArray.map(e => e.overview)
+    var releaseDate = dataArray.map(e => e.release_date)
+    var poster = dataArray.map(e => e.poster_path)
+    discoverMovies(titles, overview, releaseDate, poster)
+})
+
+function discoverMovies(f, i, g, p){
+ $(movieInfo).append(`
+ <thead>
+    <tr>
+      <th scope="col">Movie Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    ${f.map(e => {
+        return `<td>${e}</td>`
+    })}
+ `)
+ $(movieInfo).append(`
+ <thead>
+    <tr>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    ${i.map(e => {
+        return `<td>${e}</td>`
+    })}
+ `)
+ $(movieInfo).append(`
+<thead>
+    <tr>
+      <th scope="col">Release Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    ${g.map(e => {
+        return `<td>${e}</td>`
+    })}
+`)
+$(movieInfo).append(`
+<thead>
+    <tr>
+      <th scope="col">Poster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+${p.map(e => {
+    var baseImgURL = `https://image.tmdb.org/t/p/original/${e}`
+    return `<td><img src="${baseImgURL}" alt="movie poster"></td>`
+})}
+`)
+}
+    // var results = data.results
+    // results.map(titles => {
+    //     var titlesMovie = titles.title
+    //     return `<th scope="row">${titlesMovie}</th>`
+    // })
+
+//     var nameOfFirst = results[0].original_title
+//     //console.log(nameOfFirst)
+//     var overview = results[0].overview
+//     //console.log(overview)
+//     var releaseDate = results[0].release_date
+//     //console.log(releaseDate)
+//     var posterPath = results[0].poster_path
+//     //console.log(posterPath)
+//     $(movieInfo).append(`
+//     <table class="table">
+//   <thead>
+//     <tr>
+//       <th scope="col">Movie Title</th>
+//       <th scope="col">Overview</th>
+//       <th scope="col">Release Date</th>
+//       <th scope="col">Cover</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr>
+//       <th scope="row">${titlesMovie}</th>
+//       <td>${overview}</td>
+//       <td>${releaseDate}</td>
+//       <td>${posterPath}</td>
+//     </tr>
+//     </tbody>
+//   </table>
+//     `)
