@@ -1,5 +1,6 @@
 var genreSelect = document.getElementById('genreSelect')
 var movieInfo = document.getElementById('movieInfo')
+var nxtPage = document.getElementById('nxtPage')
 
 var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
 
@@ -10,7 +11,7 @@ fetch(genreURL)
     return response.json()
 })
 .then(function (data){
-    //console.log(data)
+    console.log(data)
     var genreList = data.genres
     //console.log(genreList)
     // let array = [
@@ -20,23 +21,86 @@ fetch(genreURL)
     //   console.log(array.map( e => e.foo ))
     //console.log((genreList.map(e => e.name)))
     var names = genreList.map(e => e.name)
+    var ids = genreList.map(r => r.id)
     //console.log(names)
+    //console.log(ids)
+    // var populateGenreDropdown = (genreList) => {
+    //     const select = document.getElementById('genres')
+    
+    //     for (const genre of genres) {
+    //         let option = document.createElement("option");
+    //         option.value = genre.id;
+    //         option.text = genre.name;
+    //         select.appendChild(option);
+    //     }
+    // };
+    
     genreMovies(names)
+    //return genreList
+    //genreMovies(genreList)
+    //genreId(ids)
 })
+
+// var populateGenreDropdown = (genreList) => {
+//     var select = document.getElementById('genreSelect')
+
+//     for (var genre of genreList) {
+//         let option = document.createElement("option");
+//         option.value = genre.id;
+//         option.text = genre.name;
+//         select.appendChild(option);
+//     }
+// };
+
+// populateGenreDropdown()
 
 function genreMovies(a){
 $(genreSelect).append(`
     <label for="genreSelec">Pick A Genre</label>
-    <select class="form-control" onchange="" id="genreSelec">
+    <select class="form-control" onchange="getGenre" id="genreSelec">
     <option>Select A Genre</option>
     ${a.map(e => {
         //console.log(e)
+    //console.log(`<option>${e}</option>`)
     return `<option>${e}</option>`
     })}
  `)
 }
 
-discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US`
+// function genreMovies(a, b){
+//     $(genreSelect).append(`
+//         <label for="genreSelec">Pick A Genre</label>
+//         <select class="form-control" onchange="getGenre" id="genreSelec">
+//         <option>Select A Genre</option>
+//         ${Object.keys(a).map(function (b, c){
+//             return `<option id="${b}">${c}</option>`
+
+//         })}
+        
+//      `)
+//     }
+
+
+// function genreId(b){
+//     $(genreSelect).append(`
+//     <option>${e}</option>
+//     ${b.map(e => {
+//         console.log(e)
+//         return `<option class="movieids" id=${e}> </option>`
+//     })}
+//     `)
+// }
+
+// var need = $(movieids).id
+// console.log
+
+function getGenre(){
+var pickedGenre = $(genreSelect).value
+return pickedGenre
+}
+// // https://api.themoviedb.org/3/discover/movie?api_key=8c0c06e88273c64c213af99ab1b69d08&language=en-US&page=10
+var genreChoice = getGenre()
+discoverURL = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreChoice}`
 
 fetch(discoverURL)
 .then(function (response){
@@ -103,6 +167,11 @@ ${p.map(e => {
 })}
 `)
 }
+
+// function nxtPageF (m, d, rd, pp){
+//     index++
+//     testNxtPage(m, d, rd, pp)
+// }
     // var results = data.results
     // results.map(titles => {
     //     var titlesMovie = titles.title
