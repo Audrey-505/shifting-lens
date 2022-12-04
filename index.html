@@ -11,13 +11,24 @@
   <body>
     <h1>Movie Finder</h1>
     <div class="form-group" id="genreSelect">
+        <label for="genreSelec">Pick A Genre</label>
+        <select class="form-control" onchange="goMovies()" id="genreSelec">
+        <option>Select A Genre</option>
 
     </div>
     <div id="movieInfo">
+    <h3>Movie Title</h3>
+    <h4>Date</h4>
+    <div id="poster">
 
     </div>
+    <div id="description">
 
+    </div>
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+
   </body>
 </html>
