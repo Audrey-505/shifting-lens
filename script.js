@@ -42,6 +42,10 @@ var populateGenreDropdown = (genreList) => {
     }
 };
 
+function eraseGenre(){
+    $('#genreSelect').addClass('genreHide')
+}
+
 // WORKING DROP DOWN
 // function genreMovies(a){
 //     $(genreSelect).append(`
@@ -117,6 +121,7 @@ fetch(discoverURL)
     var poster = dataArray.map(e => e.poster_path)
     var filmid = dataArray.map(e => e.id)
     console.log(filmid)
+    //getMovie(filmid)
     getMovie(filmid)
     //discoverMovies(titles, overview, releaseDate, poster)
 })
@@ -149,6 +154,8 @@ function indivMovie(t, o, pI, r){
     <div id="description">
     <p>${o}</p>
     </div>
+    <button>Thumbs Up</button> 
+    <button>Thumbs Down</button>
     `)
 }
 
