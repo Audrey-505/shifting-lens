@@ -1,5 +1,5 @@
 // var genreSelec = document.getElementById('genreSelec')
-var movieInfo = document.getElementById('movieInfo')
+var movieInfo = document.getElementById('movieInfor')
 var nxtPage = document.getElementById('nxtPage')
 
 var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
@@ -144,13 +144,12 @@ function indivMovie(t, o, pI, r){
     <h3>${t}</h3>
     <h4>${r}</h4>
     <div id="poster">
-    <img src="${baseImgURL}" alt="movie poster"
+    <img src="${baseImgURL}" alt="movie poster">
     </div>
     <div id="description">
     <p>${o}</p>
     </div>
     `)
-    console.log(t, o, pI, r)
 }
 
 
