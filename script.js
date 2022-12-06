@@ -1,10 +1,13 @@
 // var genreSelec = document.getElementById('genreSelec')
 var movieInfo = document.getElementById('movieInfor')
 var nxtPage = document.getElementById('nxtPage')
+//var movieList = JSON.parse(localStorage.getItem('movieList'))|| []
 
 var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
 
 var genreURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+
+var results
 
 var title;
 var overview;
@@ -166,8 +169,10 @@ function indivMovie(t, o, pI, r){
     </div>
     `)
     $(movieInfo).append(`
+    <div id="btnHolder">
     <button id="goodR">Thumbs Up</button> 
-    <button id="badR">Thumbs Down</button>`)
+    <button id="badR">Thumbs Down</button>
+    </div>`)
 }
 
 // function goodValue(event) {
@@ -194,19 +199,43 @@ function goodValue(event) {
     console.log('data ', filmid)
     var randomFilm = Math.floor(Math.random()*filmid.length)
     console.log('random film', filmid[randomFilm])
-    var results = filmid[randomFilm];
+    results = filmid[randomFilm];
     //var targetFilm = getMovie() 
     if (eventEl.innerText !== 'Thumbs Up'){
         $(movieInfo).html(' ')
         getMovie(results)
+    } else {
+        var goodFilm = $('#movieInfor')
+        console.log(goodFilm.html())
+        //movieList.push(JSON.stringify(goodFilm.html()))
+        //localStorage.setItem('movieList', movieList)
+        localStorage.setItem(results, goodFilm.html())
+        $(movieInfo).html(`Added to List!<br>
+        <div id="favFilmList"></div>
+        <button onclick="goAgain(event)" id="againBtn">Pick A New Genre</button>`)
+        console.log(results)
+        var returnMovies = localStorage.getItem(results)
+        $('#favFilmList').html(returnMovies)
+        $('#btnHolder').html('')
+        // var returnMovies = JSON.parse(localStorage.getItem('movieList'))
+        // for (var i=0; i < returnMovies.length; i++){
+        //     $('#favFilmList').append(returnMovies[i])
+        // }
+        //localStorage.setItem(results, getMovie(results))
     }
-    // } else {
-    //     localStorage.setItem(results, targetFilm)
-    // }
     return 
     }
     
     movieInfo.onclick = goodValue 
+
+    //$('#againBtn').onclick(goAgain)
+
+    // function goAgain(e){
+    //     e.preventDefault()
+    //     //location.replace('/index.html'); 
+    //     console.log('hello')
+    // }
+    
 
 
 // NOT RESOLVED ATTEMPT TO LOOP TO NEXT MOVIE USING REPLACEWITH 
@@ -295,7 +324,11 @@ function goodValue(event) {
 // `)
 // }
 }
-
+function goAgain(event){
+    event.preventDefault()
+    location.reload(); 
+    console.log('hello')
+}
 // function nxtPageF (m, d, rd, pp){
 //     index++
 //     testNxtPage(m, d, rd, pp)
