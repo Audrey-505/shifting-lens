@@ -6,7 +6,13 @@ var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
 
 var genreURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
 
+var title;
+var overview;
+var posterImg;
+var released;
+
 var filmid;
+
 var dataArray;
 var currentData = 0
 
@@ -138,11 +144,11 @@ function getMovie(filmId){
    })
    .then(function (data){
     console.log(data)
-    var title = data.title
+    title = data.title
     //console.log(title)
-    var overview = data.overview
-    var posterImg = data.poster_path
-    var released = data.release_date
+    overview = data.overview
+    posterImg = data.poster_path
+    released = data.release_date
     indivMovie(title, overview, posterImg, released)
    })
 }
@@ -164,23 +170,60 @@ function indivMovie(t, o, pI, r){
     <button id="badR">Thumbs Down</button>`)
 }
 
+// function goodValue(event) {
+// var eventEl = event.target
+// console.log('event: ', eventEl.innerText)
+// console.log('data ', filmid)
+// var randomFilm = Math.floor(Math.random()*filmid.length)
+// console.log('random film', filmid[randomFilm])
+// var results = filmid[randomFilm]; 
+// if (eventEl.innerText !== 'Thumbs Up'){
+//     //var targetFilm =
+//      getMovie(results)
+//     //$(movieInfo).replaceWith(`targetFilm`)
+// } 
+// return 
+// }
+
+// movieInfo.onclick = goodValue 
+
+
 function goodValue(event) {
-var eventEl = event.target
-console.log('event: ', eventEl.innerText)
-console.log('data ', filmid)
-var randomFilm = Math.floor(Math.random()*filmid.length)
-console.log('random film', filmid[randomFilm])
-var results = filmid[randomFilm]; 
-if (eventEl.innerText !== 'Thumbs Up'){
-    //var targetFilm =
-     getMovie(results)
-    //$(movieInfo).replaceWith(`targetFilm`)
-} 
-return 
-}
+    var eventEl = event.target
+    console.log('event: ', eventEl.innerText)
+    console.log('data ', filmid)
+    var randomFilm = Math.floor(Math.random()*filmid.length)
+    console.log('random film', filmid[randomFilm])
+    var results = filmid[randomFilm];
+    //var targetFilm = getMovie() 
+    if (eventEl.innerText !== 'Thumbs Up'){
+        $(movieInfo).html(' ')
+        getMovie(results)
+    }
+    // } else {
+    //     localStorage.setItem(results, targetFilm)
+    // }
+    return 
+    }
+    
+    movieInfo.onclick = goodValue 
 
-movieInfo.onclick = goodValue 
 
+// NOT RESOLVED ATTEMPT TO LOOP TO NEXT MOVIE USING REPLACEWITH 
+
+        //indivMovie()
+        //console.log(`${targetFilm}`)
+        // var randomTitle = Math.floor(Math.random()*titles.length)
+        // console.log('randomTitle: ', titles[randomTitle])
+        
+        //$(movieInfo).replaceWith(`${targetFilm}`)
+        // <h4>${released}</h4>
+        // <div id="poster">
+        // <img src="" alt="movie poster">
+        // </div>
+        // <div id="description">
+        // <p>${overview}</p>
+        // </div>`)
 
 // FUNCTIONS TO DISPLAY 1ST MOVIE OF EACH SELECTED GENRE 
 // function indivMovie(t, o, pI, r){
