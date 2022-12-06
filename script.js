@@ -6,6 +6,10 @@ var apiKey = '8c0c06e88273c64c213af99ab1b69d08'
 
 var genreURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
 
+var filmid;
+var dataArray;
+var currentData = 0
+
 fetch(genreURL)
 .then(function (response){
     return response.json()
@@ -113,13 +117,13 @@ fetch(discoverURL)
     return response.json()
 })
 .then(function (data){
-    console.log(data)
-    var dataArray = data.results
+    //console.log(data)
+    dataArray = data.results
     var titles = dataArray.map(e => e.title)
     var overview = dataArray.map(e => e.overview)
     var releaseDate = dataArray.map(e => e.release_date)
     var poster = dataArray.map(e => e.poster_path)
-    var filmid = dataArray.map(e => e.id)
+    filmid = dataArray.map(e => e.id)
     console.log(filmid)
     //getMovie(filmid)
     getMovie(filmid)
@@ -154,12 +158,48 @@ function indivMovie(t, o, pI, r){
     <div id="description">
     <p>${o}</p>
     </div>
-    <button>Thumbs Up</button> 
-    <button>Thumbs Down</button>
     `)
+    $(movieInfo).append(`
+    <button id="goodR">Thumbs Up</button> 
+    <button id="badR">Thumbs Down</button>`)
 }
 
+function goodValue(event) {
+var eventEl = event.target
+console.log('event: ', eventEl.innerText)
+console.log('data ', filmid)
+var randomFilm = Math.floor(Math.random()*filmid.length)
+console.log('random film', filmid[randomFilm])
+var results = filmid[randomFilm]; 
+if (eventEl.innerText !== 'Thumbs Up'){
+    //var targetFilm =
+     getMovie(results)
+    //$(movieInfo).replaceWith(`targetFilm`)
+} 
+return 
+}
 
+movieInfo.onclick = goodValue 
+
+
+// FUNCTIONS TO DISPLAY 1ST MOVIE OF EACH SELECTED GENRE 
+// function indivMovie(t, o, pI, r){
+//     var baseImgURL = `https://image.tmdb.org/t/p/original/${pI}`
+//     $(movieInfo).append(`
+//     <h3>${t}</h3>
+//     <h4>${r}</h4>
+//     <div id="poster">
+//     <img src="${baseImgURL}" alt="movie poster">
+//     </div>
+//     <div id="description">
+//     <p>${o}</p>
+//     </div>
+//     <button>Thumbs Up</button> 
+//     <button>Thumbs Down</button>
+//     `)
+// }
+
+//DISPLAYS ALL MOVIES 
 // function discoverMovies(f, i, g, p){
 //  $(movieInfo).append(`
 //  <thead>
