@@ -1,4 +1,3 @@
-// var genreSelec = document.getElementById('genreSelec')
 var movieInfo = document.getElementById('movieInfor')
 var nxtPage = document.getElementById('nxtPage')
 //var movieList = JSON.parse(localStorage.getItem('movieList'))|| []
@@ -206,15 +205,16 @@ function goodValue(event) {
         getMovie(results)
     } else {
         var goodFilm = $('#movieInfor')
-        console.log(goodFilm.html())
+        //console.log(goodFilm.html())
         //movieList.push(JSON.stringify(goodFilm.html()))
         //localStorage.setItem('movieList', movieList)
         localStorage.setItem(results, goodFilm.html())
         $(movieInfo).html(`Added to List!<br>
         <div id="favFilmList"></div>
         <button onclick="goAgain(event)" id="againBtn">Pick A New Genre</button>`)
-        console.log(results)
+        //console.log(results)
         var returnMovies = localStorage.getItem(results)
+        console.log(returnMovies)
         $('#favFilmList').html(returnMovies)
         $('#btnHolder').html('')
         // var returnMovies = JSON.parse(localStorage.getItem('movieList'))
