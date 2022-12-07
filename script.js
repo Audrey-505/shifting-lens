@@ -58,58 +58,6 @@ function eraseGenre(){
     $('#genreSelect').addClass('genreHide')
 }
 
-// WORKING DROP DOWN
-// function genreMovies(a){
-//     $(genreSelect).append(`
-//         ${a.map(e => {
-//             //console.log(e)
-//         //console.log(`<option>${e}</option>`)
-//         return `<option>${e}</option>`
-//         })}
-//      `)
-//     }
-    
-// WORKING
-// function genreMovies(a){
-// $(genreSelect).append(`
-//     <label for="genreSelec">Pick A Genre</label>
-//     <select class="form-control" onchange="getGenre" id="genreSelec">
-//     <option>Select A Genre</option>
-//     ${a.map(e => {
-//         //console.log(e)
-//     //console.log(`<option>${e}</option>`)
-//     return `<option>${e}</option>`
-//     })}
-//  `)
-// }
-
-// function genreMovies(a, b){
-//     $(genreSelect).append(`
-//         <label for="genreSelec">Pick A Genre</label>
-//         <select class="form-control" onchange="getGenre" id="genreSelec">
-//         <option>Select A Genre</option>
-//         ${Object.keys(a).map(function (b, c){
-//             return `<option id="${b}">${c}</option>`
-
-//         })}
-        
-//      `)
-//     }
-
-
-// function genreId(b){
-//     $(genreSelect).append(`
-//     <option>${e}</option>
-//     ${b.map(e => {
-//         console.log(e)
-//         return `<option class="movieids" id=${e}> </option>`
-//     })}
-//     `)
-// }
-
-// var need = $(movieids).id
-// console.log
-
 function getGenre(){
 var pickedGenre = document.getElementById('genreSelec').value
 return pickedGenre
